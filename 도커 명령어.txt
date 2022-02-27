@@ -112,6 +112,33 @@ docker run -d --network ecommerce-network `
 -e "spring.rabbitmq.host=rabbitmq" `
 -e "spring.zipkin.base-url=zipkin:9411" `
 -e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" `
--e "spring.datasource.url=jdbc:mariadb://mariadb:4306/mydb" `
+-e "spring.datasource.url=jdbc:mariadb://mariadb:3306/mydb" `
 -e "logging.file=/api-logs/user-ws.log" `
 hsh0424/user-service:1.0
+
+--order service
+docker build --tag hsh0424/order-service:1.0 .
+docker push hsh0424/order-service:1.0
+docker run -d --network ecommerce-network `
+--name order-service `
+-e "spring.cloud.config.uri=http://config-service:8888" `
+-e "spring.rabbitmq.host=rabbitmq" `
+-e "spring.zipkin.base-url=zipkin:9411" `
+-e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" `
+-e "spring.datasource.url=jdbc:mariadb://mariadb:3306/mydb" `
+-e "logging.file=/api-logs/user-ws.log" `
+-e "kafka.kafka.ipv4_address=172.18.0.101:9092" `
+hsh0424/order-service:1.0
+
+--catalog service
+docker build --tag hsh0424/catalog-service:1.0 .
+docker push hsh0424/catalog-service:1.0
+docker run -d --network ecommerce-network `
+--name catalog-service `
+-e "spring.cloud.config.uri=http://config-service:8888" `
+-e "spring.rabbitmq.host=rabbitmq" `
+-e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" `
+-e "spring.datasource.url=jdbc:mariadb://mariadb:3306/mydb" `
+-e "logging.file=/api-logs/user-ws.log" `
+-e "kafka.kafka.ipv4_address=172.18.0.101:9092" `
+hsh0424/catalog-service:1.0

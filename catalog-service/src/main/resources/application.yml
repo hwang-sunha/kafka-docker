@@ -37,4 +37,6 @@ eureka:
 greeting:
   message: Welcomt to the Simple E-commerce.
 
+kafka:
+  ipv4_address: 127.0.0.1:9092
 

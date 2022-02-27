@@ -83,12 +83,13 @@ public class OrderController {
         orders.forEach( v -> {
             result.add( new ModelMapper().map(v, ResponseOrder.class));
         });
-        try {
-            Thread.sleep(1000);
-            throw new Exception("장애발생");
-        }catch (InterruptedException ex){
-            log.error(ex.getMessage());
-        }
+        //TODO Resilience4J 테스트 코드
+//        try {
+//            Thread.sleep(1000);
+//            throw new Exception("장애발생");
+//        }catch (InterruptedException ex){
+//            log.error(ex.getMessage());
+//        }
 
 
         log.info("Add retrieve order data");

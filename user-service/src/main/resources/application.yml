@@ -18,8 +18,8 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/mydb
-    username: root
-    password: '{cipher}AQCI9UOqd6at9z8GMrdGrgHtOvy164D2xgP/N49gsKCcPGYD1mKe4Ebs+4waao4mFEFCJf01kJyOEpNZo67BB2NUulTpxosaQEQbgwm6iLUkonTNBLjhD3T2UOiHOPQVn7ORJWbHRMTCt48Acj69wuH0UCAf+JBq+7bbi9pp42ZFsnhb2rYQjFfGDcP9Mq0I6/RiBkC02v62qrEw1XexigfCtxZYxq8fAFz9BPpeEv0D7gmUwsDPlpYe5nu0QE+G7sjOyYQpHSnVgSveKcqovzX6m/ieoQRVugvG5K8/op4uk1RjTRJCIEaJmXlzKghjbrEdDP7k1aV5geb2uhFWa5/xjHMTJZHnSt5P925v92gq+mIgwN7h3TCQxYsqUAZGL0k='
+#    username: root
+#    password: 1234
   rabbitmq:
     host: 127.0.0.1
     port: 5672
