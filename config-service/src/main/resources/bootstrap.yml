@@ -1,0 +1,7 @@
+encrypt:
+  key-store:
+#    location: file:///${user.home}\keystore\apiEncryptionKey.jks
+    location: file:/apiEncryptionKey.jks #Docker 용도로 변경함
+    password: test1234
+    alias: apiEncryptionKey
+#  key: abcdefghijklmnopqrstuvwxyz0123456789
