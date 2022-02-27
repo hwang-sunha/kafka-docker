@@ -104,13 +104,14 @@ docker run -d -p 3000:3000 --network ecommerce-network `
 --name grafana grafana/grafana
 
 --user service
-docker build --tag hsh0424/user-service .
-docker push hsh0424/user-service
+docker build --tag hsh0424/user-service:1.0 .
+docker push hsh0424/user-service:1.0
 docker run -d --network ecommerce-network `
 --name user-service `
 -e "spring.cloud.config.uri=http://config-service:8888" `
 -e "spring.rabbitmq.host=rabbitmq" `
 -e "spring.zipkin.base-url=zipkin:9411" `
 -e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" `
+-e "spring.datasource.url=jdbc:mariadb://mariadb:4306/mydb" `
 -e "logging.file=/api-logs/user-ws.log" `
-hsh0424/user-service
+hsh0424/user-service:1.0
