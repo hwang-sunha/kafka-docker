@@ -68,13 +68,14 @@ docker run -d -p 8000:8000 --network ecommerce-network `
 --name aipgateway-service hsh0424/aipgateway-service:1.0
 
 --mariadb server
+cd mariadb
 docker build -t hsh0424/my_mariadb:1.0 .
-docker run -d -p 3306:3306 --network ecommerce-network `
+docker run -d -p 4306:3306 --network ecommerce-network `
 --name mariadb hsh0424/my_mariadb:1.0
 or
-docker run -d -p 4306:4306 --network ecommerce-network `
+docker run -d -p 4306:3306 --network ecommerce-network `
 -e MARIADB_ROOT_PASSWORD=1234 `
---name mariadb2 mariadb
+--name mariadb mariadb
 
 docker exec -it mariadb bash
 mysql -uroot -p1234
@@ -98,7 +99,18 @@ docker run -d -p 9090:9090 --network ecommerce-network `
 -v C:\prometheus-2.33.4.windows-amd64\prometheus-docker.yml:/etc/prometheus/prometheus.yml `
 prom/prometheus
 
-
 --grafana
 docker run -d -p 3000:3000 --network ecommerce-network `
 --name grafana grafana/grafana
+
+--user service
+docker build --tag hsh0424/user-service .
+docker push hsh0424/user-service
+docker run -d --network ecommerce-network `
+--name user-service `
+-e "spring.cloud.config.uri=http://config-service:8888" `
+-e "spring.rabbitmq.host=rabbitmq" `
+-e "spring.zipkin.base-url=zipkin:9411" `
+-e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" `
+-e "logging.file=/api-logs/user-ws.log" `
+hsh0424/user-service

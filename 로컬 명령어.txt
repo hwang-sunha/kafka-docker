@@ -1,0 +1,10 @@
+--rabbitmq 서버
+윈도우 서비스 검색후 rqbbitmq 실행 버튼 누름
+
+--zipkin 서버
+java -jar C:\zipkin\zipkin.jar
+
+--카프카 서버
+cd c:\kafka_2.13-3.1.0\
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+.\bin\windows\kafka-server-start.bat .\config\server.properties
