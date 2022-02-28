@@ -1,6 +1,7 @@
 package com.example.userservice.security;
 
 import com.example.userservice.service.UserService;
+import com.sun.xml.bind.v2.TODO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -24,10 +25,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/actuator/**").permitAll()
-                .antMatchers("/**")
-                    .hasIpAddress("10.11.6.5")
-                    .and()
-                    .addFilter(getAuthenticatonFilter());
+                //.antMatchers("/**").hasIpAddress(env.getProperty("gateway.ip"))
+        ;
+        http.addFilter(getAuthenticatonFilter());
         http.headers().frameOptions().disable();
     }
 

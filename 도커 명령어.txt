@@ -59,13 +59,13 @@ docker run -d -p 8761:8761 --network ecommerce-network `
 --name discovery-service hsh0424/discovery-service:1.0
 
 --apigateway service
-docker build --tag hsh0424/aipgateway-service:1.0 .
-docker push hsh0424/aipgateway-service:1.0
+docker build --tag hsh0424/apigateway-service:1.0 .
+docker push hsh0424/apigateway-service:1.0
 docker run -d -p 8000:8000 --network ecommerce-network `
 -e "spring.cloud.config.url=http://config-service:8888" `
 -e "spring.rabbitmq.host=rabbitmq" `
 -e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" `
---name aipgateway-service hsh0424/aipgateway-service:1.0
+--name apigateway-service hsh0424/apigateway-service:1.0
 
 --mariadb server
 cd mariadb

@@ -26,39 +26,12 @@ spring:
             preLogger: true
             postLogger: true
       routes:
-        - id: order-service
-          uri: lb://ORDER-SERVICE
-          predicates:
-            - Path=/order-service/**
-          filters:
-            - name: CustomFilter
-        - id: catalog-service
-          uri: lb://CATALOG-SERVICE
-          predicates:
-            - Path=/catalog-service/**
-          filters:
-            - name: CustomFilter
-#        - id: user-service
-#          uri: lb://USER-SERVICE
-#          predicates:
-#            - Path=/user-service/**
-#          filters:
-#            - name: CustomFilter
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/login
-            - Method=POST
-          filters:
-#            - RemoveRequestheader=Cookie
-            - RewritePath=/user-service/(?<path>.*),/$\{path}
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/users
             - Method=POST
           filters:
-#            - RemoveRequestheader=Cookie
             - RewritePath=/user-service/(?<path>.*),/$\{path}
         - id: user-service
           uri: lb://USER-SERVICE
@@ -79,8 +52,13 @@ spring:
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
+            - Path=/order-service/**
+          filters:
+            - name: CustomFilter
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
             - Path=/order-service/actuator/**
-            - Method=GET
           filters:
             - RewritePath=/order-service/(?<path>.*),/$\{path}
 
