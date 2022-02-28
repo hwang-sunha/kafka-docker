@@ -68,7 +68,7 @@ docker run -d -p 8000:8000 --network ecommerce-network `
 --name apigateway-service hsh0424/apigateway-service:1.0
 
 --mariadb server
-cd mariadb
+cd mariadb-dokcker
 docker build -t hsh0424/my_mariadb:1.0 .
 docker run -d -p 4306:3306 --network ecommerce-network `
 --name mariadb hsh0424/my_mariadb:1.0
@@ -87,7 +87,8 @@ flush privileges
 mysql -h127.0.0.1 -uroot -p1234
 
 --kafka server
-docker-compose -f docker-compose-single-broker.yml up -d
+cd kafka-docker
+docker-compose -f ./docker-compose-single-broker.yml up -d
 
 --zipkin server
 docker run -d -p 9411:9411 --network ecommerce-network `
@@ -96,7 +97,7 @@ docker run -d -p 9411:9411 --network ecommerce-network `
 --prometheus
 docker run -d -p 9090:9090 --network ecommerce-network `
 --name prometheus `
--v C:\prometheus-2.33.4.windows-amd64\prometheus-docker.yml:/etc/prometheus/prometheus.yml `
+-v ./prometheus-docker.yml:/etc/prometheus/prometheus.yml `
 prom/prometheus
 
 --grafana

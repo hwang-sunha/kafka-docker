@@ -44,6 +44,7 @@ public class UserController {
         return greeting.getMessage();
     }
 
+    @Timed(value="users.createUser",longTask=true)
     @PostMapping("/users")
     public ResponseEntity createUser(@RequestBody RequestUser user){
         ModelMapper mapper = new ModelMapper();
@@ -59,6 +60,8 @@ public class UserController {
 
 
     }
+
+    @Timed(value="users.getUsers",longTask=true)
     @GetMapping("/users")
     public ResponseEntity<List<ResponseUser>> getUsers(){
         Iterable<UserEntity> userByAll = userService.getUserByAll();
@@ -70,6 +73,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(users);
     }
+
+    @Timed(value="users.getUser",longTask=true)
     @GetMapping("/users/{userId}")
     public ResponseEntity<ResponseUser> getUser(
             @PathVariable("userId") String userId) {

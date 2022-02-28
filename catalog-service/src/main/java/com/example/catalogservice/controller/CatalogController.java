@@ -3,6 +3,7 @@ package com.example.catalogservice.controller;
 import com.example.catalogservice.jpa.CatalogEntity;
 import com.example.catalogservice.service.CatalogService;
 import com.example.catalogservice.vo.ResponseCatalog;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.env.Environment;
@@ -20,6 +21,7 @@ public class CatalogController {
     private final Environment env;
     private final CatalogService catalogService;
 
+    @Timed(value="catalogs.status",longTask=true)
     @GetMapping("/health_check")
     public String status() {
         return String.format("It's working in Catalog Service"
@@ -31,11 +33,13 @@ public class CatalogController {
         );
     }
 
+    @Timed(value="catalogs.welcome",longTask=true)
     @GetMapping("/welcome")
     public String welcome() {
         return env.getProperty("greeting.message");
     }
 
+    @Timed(value="catalogs.getCatalogs",longTask=true)
     @GetMapping("/catalogs")
     public ResponseEntity<List<ResponseCatalog>> getCatalogs(){
         Iterable<CatalogEntity> allCatalogs = catalogService.getAllCatalogs();

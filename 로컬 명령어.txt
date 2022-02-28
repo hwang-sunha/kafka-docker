@@ -1,9 +1,23 @@
---rabbitmq 서버
+--rabbitmq 서버(필수)
 윈도우 서비스 검색후 rqbbitmq 실행 버튼 누름
 
---zipkin 서버
-java -jar C:\zipkin\zipkin.jar
+--zipkin 서버(필수)
+java -jar C:\zipkin\zipkin.jar 실행
 
---카프카 서버 컨슈머 확인 ( example-catalog-topic)
+--카프카
 cd c:\kafka_2.13-3.1.0\
+1. 주키퍼 서버 실행(필수)
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+2. 카프카 서버 실행(필수)
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+3.서버 컨슈머 확인하고 싶을때 사용( example-catalog-topic)
 .\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic  example-catalog-topic --from-beginning
+
+--prometheus
+cd C:\prometheus-2.33.4.windows-amd64
+.\prometheus.exe --config.file=prometheus.yml 실행후   localhost:9090 확인
+.\prometheus.exe 만 입력해도 되는 것 같음.
+
+--grafana
+cd C:\grafana-8.4.2\bin
+grafana-server.exe 실행 후 localhost:3000 확인 -> admin/admin

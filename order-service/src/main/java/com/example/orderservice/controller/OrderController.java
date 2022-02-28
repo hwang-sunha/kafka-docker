@@ -7,6 +7,7 @@ import com.example.orderservice.messagequeue.OrderProducer;
 import com.example.orderservice.service.OrderService;
 import com.example.orderservice.vo.RequestOrder;
 import com.example.orderservice.vo.ResponseOrder;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -32,6 +33,7 @@ public class OrderController {
     private final KafkaProducer kafkaProducer;
     private final OrderProducer orderProducer;
 
+    @Timed(value="orders.status",longTask=true)
     @GetMapping("/health_check")
     public String status() {
         return String.format("It's working in Order Service"
@@ -43,6 +45,7 @@ public class OrderController {
         );
     }
 
+    @Timed(value="orders.creatOrder",longTask=true)
     @GetMapping("/welcome")
     public String welcome() {
         return env.getProperty("greeting.message");
@@ -76,6 +79,7 @@ public class OrderController {
                 .body(responseOrder);
     }
 
+    @Timed(value="orders.getOrders",longTask=true)
     @GetMapping("/{userId}/orders")
     public ResponseEntity getOrders(
             @PathVariable("userId") String userId) throws Exception{

@@ -1,5 +1,6 @@
 package com.example.apigatewayservice.controller;
 
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiGatewayController {
     private final Environment env;
 
+    @Timed(value="gateways.status",longTask=true)
     @GetMapping("/health_check")
     public String status() {
         return String.format("It's working in User Service"
@@ -23,6 +25,7 @@ public class ApiGatewayController {
         );
     }
 
+    @Timed(value="gateways.welcome",longTask=true)
     @GetMapping("/welcome")
     public String welcome() {
         return "welcome";

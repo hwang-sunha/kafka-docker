@@ -3,8 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/kafka-docker/kafka-docker.iml" filepath="$PROJECT_DIR$/kafka-docker/kafka-docker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mariadb/mariadb.iml" filepath="$PROJECT_DIR$/mariadb/mariadb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mariadb-docker/mariadb-docker.iml" filepath="$PROJECT_DIR$/mariadb-docker/mariadb-docker.iml" />
       <module fileurl="file://$PROJECT_DIR$/native-file-repo/native-file-repo.iml" filepath="$PROJECT_DIR$/native-file-repo/native-file-repo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/prometheus-docker/prometheus-docker.iml" filepath="$PROJECT_DIR$/prometheus-docker/prometheus-docker.iml" />
     </modules>
   </component>
 </project>
