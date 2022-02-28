@@ -13,13 +13,13 @@ import java.time.Duration;
 @Configuration
 public class Resilience4JConfig {
     CircuitBreakerConfig circuitBreakerConfig=CircuitBreakerConfig.custom()
-            .failureRateThreshold(4)
-            .waitDurationInOpenState(Duration.ofMillis(1000))
+            .failureRateThreshold(50)    //실패확율(%)
+            .waitDurationInOpenState(Duration.ofMillis(1000))  //circuitBreaker 유지시간
             .slidingWindowType(CircuitBreakerConfig.SlidingWindowType.COUNT_BASED)
-            .slidingWindowSize(2)
+            .slidingWindowSize(2)  //카운트 기간이면 횟수
             .build();
     TimeLimiterConfig timeLimiterConfig=TimeLimiterConfig.custom()
-            .timeoutDuration(Duration.ofSeconds(4))
+            .timeoutDuration(Duration.ofSeconds(4))  //응답대기시간
             .build();
 
     @Bean

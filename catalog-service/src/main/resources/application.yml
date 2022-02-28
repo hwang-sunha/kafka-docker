@@ -3,17 +3,16 @@ server:
 spring:
   application:
     name: catalog-service
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
-      path: /h2-console
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/mydb
     username: root
     password: 1234
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   jpa:
     hibernate:
       ddl-auto: update
@@ -34,9 +33,10 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
-greeting:
-  message: Welcomt to the Simple E-commerce.
 
-kafka:
-  ipv4_address: 127.0.0.1:9092
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, refresh, health, beans, httptrace, busrefresh, metrics, prometheus
 

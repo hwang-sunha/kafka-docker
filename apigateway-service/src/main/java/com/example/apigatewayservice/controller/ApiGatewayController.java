@@ -15,6 +15,7 @@ public class ApiGatewayController {
     @GetMapping("/health_check")
     public String status() {
         return String.format("It's working in User Service"
+                +"\nenv.getProperty(gateway.ip)=" + env.getProperty("gateway.ip")
                 +"\nenv.getProperty(local.server.port)=" + env.getProperty("local.server.port")
                 +"\nenv.getProperty(server.port)=" + env.getProperty("server.port")
                 +"\nenv.getProperty(token.secret)=" + env.getProperty("token.secret")

@@ -7,13 +7,9 @@
 .\bin\windows\kafka-server-start.bat .\config\server.properties
 3. 프로듀서 실행
 .\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic quickstart-events
-4. 컨슈머 실행
-.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic quickstart-events --from-beginning
-5.토픽 확인
+4. 토픽 확인
 .\bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --list
+5. 컨슈머 확인
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic quickstart-events --from-beginning
 6.카프카 커낵트 설치후 실행
 .\bin\windows\connect-distributed.bat .\etc\kafka\connect-distributed.properties
-7.프로듀서 확인
-.\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic my_topic_users
-8.컨슈머 확인
-.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic my_topic_users --from-beginning

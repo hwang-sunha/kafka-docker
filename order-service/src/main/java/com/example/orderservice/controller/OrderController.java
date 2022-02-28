@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/order-service")
+@RequestMapping("")
 @RequiredArgsConstructor
 @Slf4j
 public class OrderController {
@@ -34,8 +34,12 @@ public class OrderController {
 
     @GetMapping("/health_check")
     public String status() {
-        return String.format("It's working in Order Service on Port %s",
-                env.getProperty("local.server.port")
+        return String.format("It's working in Order Service"
+                +"\nenv.getProperty(gateway.ip)=" + env.getProperty("gateway.ip")
+                +"\nenv.getProperty(local.server.port)=" + env.getProperty("local.server.port")
+                +"\nenv.getProperty(server.port)=" + env.getProperty("server.port")
+                +"\nenv.getProperty(token.secret)=" + env.getProperty("token.secret")
+                +"\nenv.getProperty(token.experation_time)=" + env.getProperty("token.experation_time")
         );
     }
 
@@ -63,7 +67,7 @@ public class OrderController {
 //        ResponseOrder responseOrder = mapper.map(orderDto, ResponseOrder.class);
 
         /* send this order to the kafka */
-//        kafkaProducer.send("example-catalog-topic",orderDto);
+        kafkaProducer.send("example-catalog-topic",orderDto);
 //        orderProducer.send("orders",orderDto);
 
         log.info("After added order data");

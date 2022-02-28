@@ -26,41 +26,36 @@ spring:
             preLogger: true
             postLogger: true
       routes:
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/users
-            - Method=POST
-          filters:
-            - RewritePath=/user-service/(?<path>.*),/$\{path}
+
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/**
-            - Method=GET
           filters:
-#            - RemoveRequestheader=Cookie
             - RewritePath=/user-service/(?<path>.*),/$\{path}
-            - AuthorizationHeaderFilter
+
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/actuator/**
+            - Path=/user-service/users/**
             - Method=GET,POST
           filters:
             - RewritePath=/user-service/(?<path>.*),/$\{path}
+            - AuthorizationHeaderFilter
+
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/order-service/**
           filters:
-            - name: CustomFilter
-        - id: order-service
-          uri: lb://ORDER-SERVICE
-          predicates:
-            - Path=/order-service/actuator/**
-          filters:
             - RewritePath=/order-service/(?<path>.*),/$\{path}
+
+        - id: catalog-service
+          uri: lb://CATALOG-SERVICE
+          predicates:
+            - Path=/catalog-service/**
+          filters:
+            - RewritePath=/catalog-service/(?<path>.*),/$\{path}
 
         - id: first-service
           uri: lb://MY-FIRST-SERVICE
@@ -68,6 +63,7 @@ spring:
             - Path=/first-service/**
           filters:
             - name: CustomFilter
+
         - id: second-service
           uri: lb://MY-SECOND-SERVICE
           predicates:
@@ -85,4 +81,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httptrace, busrefresh, info, metrics,  prometheus
+        include: info, refresh, health, beans, httptrace, busrefresh, metrics, prometheus

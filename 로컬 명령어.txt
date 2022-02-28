@@ -4,7 +4,6 @@
 --zipkin 서버
 java -jar C:\zipkin\zipkin.jar
 
---카프카 서버
+--카프카 서버 컨슈머 확인 ( example-catalog-topic)
 cd c:\kafka_2.13-3.1.0\
-.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
-.\bin\windows\kafka-server-start.bat .\config\server.properties
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic  example-catalog-topic --from-beginning

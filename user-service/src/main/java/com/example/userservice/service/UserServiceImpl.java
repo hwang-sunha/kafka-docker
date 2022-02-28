@@ -82,35 +82,35 @@ public class UserServiceImpl implements UserService{
 
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
-        /* Using a rest template- Feign exceptin handling */
-//        List<ResponseOrder> orders = new ArrayList<>();
+        /* CASE1 Using a rest template- Feign exceptin handling */
 //        String orderUrl=String.format(Objects.requireNonNull(env.getProperty("order_service.url")),userId);
 //        ResponseEntity<List<ResponseOrder>> response = restTemplate.exchange(orderUrl, HttpMethod.GET, null,
 //                new ParameterizedTypeReference<List<ResponseOrder>>() {
 //                });
 //        userDto.setOrders(response.getBody());
 
-        /* Using a feign client */
-//        List<ResponseOrder> orders= null;
+        /* CASE2 Using a feign client */
+//        List<ResponseOrder> orders2= null;
 //        try {
-//            orders=orderServiceClient.getOrders(userId);
+//            orders2=orderServiceClient.getOrders(userId);
 //        } catch (FeignException ex) {
 //            log.error("feign exception: "+ ex.getMessage());
 //        }
-//        userDto.setOrders(orders);
+//        userDto.setOrders(orders2);
 
-        /* ErrorDecoder */
-//        List<ResponseOrder> orders=orderServiceClient.getOrders(userId);
-//        userDto.setOrders(orders);
+        /* CASE3 ErrorDecoder */
+//        List<ResponseOrder> orders3=orderServiceClient.getOrders(userId);
+//        userDto.setOrders(orders3);
 
-        /* Use Circuit Breaker */
+        /* CASE4 Use Circuit Breaker */
         log.info("Before call user microservice");
         CircuitBreaker circuitbreaker=circuitBreakerFactory.create("circuitbreaker");
-        List<ResponseOrder> orders=circuitbreaker.run(() -> orderServiceClient.getOrders(userId),
+        List<ResponseOrder> orders4=circuitbreaker.run(() ->
+                        orderServiceClient.getOrders(userId),
                 throwable -> new ArrayList<>());
 
         log.info("After call user microservice");
-        userDto.setOrders(orders);
+        userDto.setOrders(orders4);
 
 
         return userDto;
